@@ -148,13 +148,52 @@ function checkSetTheory(attempts){
     return fourAttempts;
 }
 
+/**
+ *  guessNumber evalue a arrays
+ * @param {Array} theNumber 
+ * @param {Object} attempts 
+ */
+function guessNumber(theNumber, attempts){
+  /*  sumMatches = getPicas(theNumber, attempts) + getFixed(theNumber, attempts);
+ /*   if(sumMatches === 0){
+        discardNumbers.push(attempts);
+    }else if(sumMatches === 1){
+        
+    }else if(sumMatches === 2){
 
-function guessNumber(theNumber, attempt){
-    sumMatches = getPicas(theNumber, attempt) + getFixed(theNumber, attempt);
-    if(sumMatches === 0)
-        discardNumbers.push(attempt);
-    return discardNumbers;
+    }else if(sumMatches === 3){
+
+    }else if(sumMatches === 4){
+
+    }*/
+
+    var aux= [];
+
+    for (var key in attempts) {
+        sumMatches = attempts[key].picas + attempts[key].fixed;
+        
+        if(sumMatches === 4){
+            aux.push(attempts[key].number);
+        }
+        if(sumMatches === 1){
+            console.log("entro 1");
+        }
+        if(sumMatches === 2){
+            console.log("entro 2");
+        }
+        if(sumMatches === 3){
+            console.log("entro 3");
+        }
+        if(sumMatches === 0){
+            
+        }
+    }
+    
+    
+  //  return discardNumbers;
 }
 
 console.log(theNumber);
-console.log(checkSetTheory(setTheory()));
+//console.log(checkSetTheory(setTheory()));
+console.log(guessNumber(theNumber, checkSetTheory(setTheory())));
+
