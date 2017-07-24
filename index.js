@@ -57,13 +57,12 @@ function generateNumber(){
  *   }
  * }
  */
-function setAttempts(){
-    var number = generateNumber();
+function setAttempts(number, picas, fijas){
 
     attempts[turn] = {
         number: number,
-        picas: null,
-        fixed: null
+        picas: picas,
+        fixed: fijas
     }
     turn++;
 
@@ -108,9 +107,47 @@ function setBaseAttempts(){
         baseAttempts.push(actualDigits);
         turn++;
     }
-    console.log(turn);
     return baseAttempts;
 }
+
+/**
+ * Set the first 4 attempst.
+ * lauch an array of 4 different digits.
+ * Take the last two digits of the previous array and put it in an new array with two new digits,
+ * until complete 4 attempts.
+ */
+function setTheory(){
+    var firstAttempt = [];
+    var list = [0,1,2,3,4,5,6,7,8,9];
+
+    list = list.sort(function() {return Math.random() - 0.5});
+    
+    // TODO REFACTOR THIS
+    var attempts = [
+        [list[0], list[1], list[2], list[3]],
+        [list[2], list[3], list[4], list[5]],
+        [list[4], list[5], list[6], list[7]],
+        [list[6], list[7], list[8], list[9]],
+    ];
+    return attempts;
+}
+
+/**
+ * CheckSetTheory
+ * Return an object with the 4 first attemps and the results comparing it with the number to guess
+ * @param {Array} attempts 
+ */
+function checkSetTheory(attempts){
+    var fourAttempts = {};
+    for(var i=0; i<attempts.length; i++){
+        var picas = getPicas(theNumber, attempts[i]);
+        var fixed = getFixed(theNumber, attempts[i]);
+        fourAttempts = setAttempts(attempts[i], picas, fixed);
+    }
+
+    return fourAttempts;
+}
+
 
 function guessNumber(theNumber, attempt){
     sumMatches = getPicas(theNumber, attempt) + getFixed(theNumber, attempt);
@@ -119,13 +156,5 @@ function guessNumber(theNumber, attempt){
     return discardNumbers;
 }
 
-// var actual = generateNumber();
 console.log(theNumber);
-// console.log(actual);
-// console.log("Picas: "+getPicas(theNumber, actual));
-// console.log("Fijas: "+getFixed(theNumber, actual));
-// console.log("discardNumber: "+guessNumber(theNumber, actual));
-
-// console.log(setBaseAttempts());
-// console.log(setBaseAttempts());
-// console.log(setBaseAttempts());
+console.log(checkSetTheory(setTheory()));
